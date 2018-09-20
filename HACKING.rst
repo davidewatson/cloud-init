@@ -109,3 +109,34 @@ have any questions.
 .. _tox: https://tox.readthedocs.io/en/latest/
 .. _Launchpad: https://launchpad.net
 .. _cloud-init-dev: https://launchpad.net/~cloud-init-dev/+members#active
+
+Building source packages for PPA
+================================
+
+* Creating a Docker-based env for Building
+
+    docker run --rm -it -v ~/src:/src -v ~/.gnupg:/root/.gnupg ubuntu:xenial /bin/bash
+    apt-get update
+    apt-get install -y git make devscripts debhelper dh-systemd python3-yaml python3-requests python3-setuptools
+    cd /src/cloud-init/cloud-init/
+
+* For Xenial:
+
+    ./packages/bddeb -S -d --sign --release xenial
+
+* For Bionic:
+
+    ./packages/bddeb -S -d --sign --release bionic
+
+Building source packages for COPR
+=================================
+
+* Creating a Docker-based env for Building
+
+    docker run --rm -it -v ~/src:/src centos:7 /bin/bash
+    yum install -y python-six python-yaml python-requests python-jinja2 git rpm-build make
+    cd /src/cloud-init/cloud-init/
+
+* For EL7:
+
+    ./packages/brpm --srpm --distro=redhat --boot=systemd
