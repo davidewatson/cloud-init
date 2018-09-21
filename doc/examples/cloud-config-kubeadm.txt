@@ -1,0 +1,17 @@
+#cloud-config
+
+# kubeadm: bootstrap a Kubernetes node using kubeadm
+#   operation: Type of kubeadm operation to perform. Choices are 'init' and 'join'
+#   config: Path to a kubeadm config file
+
+write_files:
+- content: |
+    apiVersion: kubeadm.k8s.io/v1alpha2
+    kind: MasterConfiguration
+    nodeRegistration:
+      criSocket: /run/containerd/containerd.sock
+  path: /run/kubeadm/kubeadm.config
+
+kubeadm:
+  operation: init
+  config: /run/kubeadm/kubeadm.config
