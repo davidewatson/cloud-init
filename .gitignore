@@ -12,3 +12,11 @@ stage
 *.snap
 *.cover
 .idea/
+*.swp
+*.build
+*.changes
+*.dsc
+*.src.rpm
+*.tar.gz
+*.tar.xz
+*.upload
