@@ -1,9 +1,11 @@
-#cloud-config
-
 # kubeadm: bootstrap a Kubernetes node using kubeadm
 #   operation: Type of kubeadm operation to perform. Choices are 'init' and 'join'
 #   config: Path to a kubeadm config file
 
+# Example of kubeadm init
+# -----------------------
+
+#cloud-config
 write_files:
 - content: |
     apiVersion: kubeadm.k8s.io/v1alpha2
@@ -14,4 +16,23 @@ write_files:
 
 kubeadm:
   operation: init
+  config: /run/kubeadm/kubeadm.config
+
+# Example of kubeadm join
+# -----------------------
+
+#cloud-config
+write_files:
+- content: |
+    apiVersion: kubeadm.k8s.io/v1alpha2
+    kind: JoinConfiguration
+    nodeRegistration:
+      criSocket: /run/containerd/containerd.sock
+    token: jpnc8t.o35lbe5u4cu700ig
+    discoveryTokenCACertHashes:
+    - sha256:870caea87334b8feb8cd0f6e26e307522d75e28d4ed57e3dcce37ba915dd8d56
+  path: /run/kubeadm/kubeadm.config
+
+kubeadm:
+  operation: join
   config: /run/kubeadm/kubeadm.config
