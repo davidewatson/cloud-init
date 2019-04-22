@@ -11,3 +11,12 @@ prime
 stage
 *.snap
 *.cover
+
+*.swp
+*.build
+*.changes
+*.dsc
+*.src.rpm
+*.tar.gz
+*.tar.xz
+*.upload
